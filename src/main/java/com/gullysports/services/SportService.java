@@ -57,6 +57,11 @@ public class SportService {
         return sportRepository.save(sport);
     }
 
+    /**
+     * Function to update a sport.
+     * @param sport sport object which needs to be updated
+     * @return update sport
+     */
     public Sport updateSport(Sport sport){
 
         if(sport.getId() == null){
