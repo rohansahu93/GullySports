@@ -1,15 +1,12 @@
 
 package com.gullysports.services;
 
-import java.util.List;
-import java.util.UUID;
-
+import com.gullysports.db.SportRepository;
+import com.gullysports.models.Sport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.gullysports.db.SportRepository;
-import com.gullysports.models.Sport;
-import org.springframework.web.bind.MethodArgumentNotValidException;
+import java.util.List;
 
 /**
  * Sports class which is responsible for managing all the sports we are supporting

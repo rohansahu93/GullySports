@@ -19,3 +19,7 @@ dist/
 nbdist/
 .nb-gradle/
 bin
+
+### Intellij ###
+**/.idea
+*.iml

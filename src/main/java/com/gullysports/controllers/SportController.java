@@ -2,13 +2,17 @@
 package com.gullysports.controllers;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 
 import com.gullysports.models.Sport;
 import com.gullysports.services.SportService;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,7 +38,7 @@ public class SportController {
      */
     @RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public List<Sport> getAllSports(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public List<Sport> getAllSports() throws Exception {
         return sportService.getAllSports();
     }
 
@@ -45,7 +49,7 @@ public class SportController {
      * @return added sport details
      */
     @RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json")
-    public Sport addSport(HttpServletRequest request, HttpServletResponse response, @RequestBody @Valid Sport sport) {
+    public Sport addSport(@RequestBody @Valid Sport sport) throws Exception{
 
         return sportService.addSport(sport);
     }
@@ -58,7 +62,7 @@ public class SportController {
      */
     @RequestMapping(value = "/{sportId}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public Sport getSport(HttpServletRequest request, HttpServletResponse response, @PathVariable("sportId") String sportId) throws Exception {
+    public Sport getSport(@PathVariable("sportId") String sportId) throws Exception {
         return sportService.getSport(sportId);
     }
 
