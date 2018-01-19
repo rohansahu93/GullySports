@@ -1,22 +1,40 @@
 
 package com.gullysports.models;
 
-import java.util.Date;
+import javax.validation.constraints.NotNull;
 
-import org.springframework.data.annotation.Id;
+public class Sport extends EntityBase{
 
-import lombok.Data;
-
-/**
- * Sport object properties class
- * 
- * @author nitesh.sharma
- */
-@Data
-public class Sport {
-
-    @Id private String id;
+    @NotNull
     private String name;
-    private Date createdDate;
-    private Date modifiedDate;
+
+    @NotNull
+    private SportType sportType;
+
+    private String description;
+
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public SportType getSportType() {
+        return sportType;
+    }
+
+    public void setSportType(SportType sportType) {
+        this.sportType = sportType;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

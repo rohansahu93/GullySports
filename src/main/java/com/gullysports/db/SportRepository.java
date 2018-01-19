@@ -27,4 +27,6 @@ public interface SportRepository extends CrudRepository<Sport, Long> {
      * @return Sport Object matching the name parameter
      */
     List<Sport> findByName(String name);
+
+    Sport findById(String id);
 }
