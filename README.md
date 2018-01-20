@@ -1,14 +1,9 @@
-# Template for Java Microservices project for Cartos
+# A stand-alone GullySports Application consists of various REST-APIs.
 
 # Pre-requisite 
 
 1. Eclipse (latest available)
 2. Install [Spring Tools ](https://marketplace.eclipse.org/content/spring-tools-aka-spring-ide-and-spring-tool-suite)
-3. Import settings/Cartos_Profile.xml from Eclipse Settings available under java->Code Style -> Formatter -> import
-4. Install Lombok plugin 
-	1.1 Download lombok.jar from https://projectlombok.org/download
-	1.2 $java -jar lomobok.jar will launch the installer to install the plugin.
-	1.3 if the above does not work, then modify the eclipse.ini file to include -javaagent:lomobk.jar and place the lomobok.jar at the same location as the eclipse.exe
 3. Java 8 Runtime
 4. Mongo DB
 
