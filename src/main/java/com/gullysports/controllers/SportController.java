@@ -22,13 +22,14 @@ import javax.validation.Valid;
  * This class is responsible for exposing REST APis for sports.
  */
 @RestController
-@RequestMapping("/v1/sports")
+@RequestMapping("v1/sports")
 public class SportController {
 
     /**
      * Spring will initialize ProjectService object.
      */
-    @Autowired private SportService sportService;
+    @Autowired
+    private SportService sportService;
 
     /**
      * Rest Interface for fetching all the sports.
@@ -60,7 +61,7 @@ public class SportController {
      * @return Single sport
      * @throws Exception
      */
-    @RequestMapping(value = "/{sportId}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "{sportId}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public Sport getSport(@PathVariable("sportId") String sportId) throws Exception {
         return sportService.getSport(sportId);
@@ -75,7 +76,20 @@ public class SportController {
 
     @RequestMapping(value = "", method = RequestMethod.PUT, produces = "application/json")
     @ResponseBody
-    public Sport updateSport(HttpServletRequest request, HttpServletResponse response, @RequestBody @Valid Sport sport) throws Exception {
+    public Sport updateSport(@RequestBody @Valid Sport sport) throws Exception {
         return sportService.updateSport(sport);
+    }
+
+    /**
+     * Rest Interface for deleting sport.
+     *
+     * @return deleting sport
+     * @throws Exception
+     */
+
+    @RequestMapping(value = "{sportId}", method = RequestMethod.DELETE, produces = "application/json")
+    @ResponseBody
+    public void deleteSport(@PathVariable("sportId") String sportId) throws Exception {
+        sportService.deleteSport(sportId);
     }
 }

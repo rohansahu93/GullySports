@@ -3,6 +3,8 @@ package com.gullysports.services;
 
 import com.gullysports.db.SportRepository;
 import com.gullysports.models.Sport;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,8 @@ public class SportService {
      */
     @Autowired
     private SportRepository sportRepository;
+
+    private final Logger logger = LoggerFactory.getLogger(SportService.class);
 
     /**
      * Function to get all the sports from database.
@@ -45,7 +49,7 @@ public class SportService {
      * @param sport sport object which needs to be added
      * @return added sport
      */
-    public Sport addSport(final Sport sport) {
+    public Sport addSport(Sport sport) {
 
         if(!(sportRepository.findByName(sport.getName()).isEmpty())){
             throw new IllegalArgumentException(String.format("Sport %s is already present", sport.getName()));
@@ -66,9 +70,25 @@ public class SportService {
         }
 
         if(sportRepository.findById(sport.getId()) == null){
+            logger.error(String.format("Sport with ID:%s is not present", sport.getId()));
             throw new IllegalArgumentException(String.format("Sport with ID:%s is not present", sport.getId()));
         }
 
         return sportRepository.save(sport);
+    }
+
+    /**
+     * Function to delete a sport.
+     * @param sportID which needs to be deleted
+     * @return update sport
+     */
+    public void deleteSport(String sportID){
+
+        if(sportRepository.findById(sportID) == null){
+            logger.error(String.format("Sport with ID:%s is not present", sportID) );
+            throw new IllegalArgumentException(String.format("Sport with ID:%s is not present", sportID));
+        }
+        sportRepository.delete(sportID);
+        logger.info(String.format("SPORT: Sport id:%s deleted", sportID));
     }
 }
