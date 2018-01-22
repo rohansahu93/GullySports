@@ -15,7 +15,7 @@ import com.gullysports.models.Sport;
  * 
  * @author nitesh.sharma
  */
-public interface SportRepository extends CrudRepository<Sport, Long> {
+public interface SportRepository extends CrudRepository<Sport, String> {
 
     /**
      * Finds a Sport object that matches the name parameter. Spring
