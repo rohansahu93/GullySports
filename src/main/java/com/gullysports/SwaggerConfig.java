@@ -13,7 +13,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /**
  * Swagger configuration.
  * 
- * @author Rakesh Sawan
+ * @author nitesh.sharma
  */
 @Configuration
 @EnableSwagger2
@@ -22,7 +22,7 @@ public class SwaggerConfig {
     /**
      * Base package for the apis.
      */
-    private static final String BASE_PACKAGE = "com.itt";
+    private static final String BASE_PACKAGE = "com.gullysports";
 
     /**
      * Swagger2 configuration.
@@ -30,7 +30,7 @@ public class SwaggerConfig {
      * @return Docket instance of Docket Bean
      */
     @Bean
-    public Docket dbentityApi() {
+    public Docket productApi() {
 
         return new Docket(DocumentationType.SWAGGER_2).select().apis(
             RequestHandlerSelectors.basePackage(BASE_PACKAGE)).paths(PathSelectors.any()).build();
