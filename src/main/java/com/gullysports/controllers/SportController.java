@@ -26,7 +26,8 @@ public class SportController {
     /**
      * Spring will initialize ProjectService object.
      */
-    @Autowired private SportService sportService;
+    @Autowired
+    private SportService sportService;
 
     /**
      * Rest Interface for fetching all the sports.
