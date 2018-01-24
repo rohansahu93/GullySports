@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.gullysports.models.Sport;
 import com.gullysports.services.SportService;
 
 /**
  * This class is responsible for exposing REST APis for sports.
+ * TODO :  Refactor controller - create base controller
  */
 @RestController
 @RequestMapping("v1/sports")

@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * Sports class which is responsible for managing all the sports we are supporting
- * related to project pricing.
+ * related to project GullySports.
  * 
  * @author nitesh.sharma
  */
@@ -25,7 +25,7 @@ public class SportService {
     @Autowired
     private SportRepository sportRepository;
 
-    private final Logger logger = LoggerFactory.getLogger(SportService.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(SportService.class);
 
     /**
      * Function to get all the sports from database.
@@ -70,7 +70,7 @@ public class SportService {
         }
 
         if(sportRepository.findById(sport.getId()) == null){
-            logger.error(String.format("Sport with ID:%s is not present", sport.getId()));
+            LOGGER.error(String.format("Sport with ID:%s is not present", sport.getId()));
             throw new IllegalArgumentException(String.format("Sport with ID:%s is not present", sport.getId()));
         }
 
@@ -85,10 +85,10 @@ public class SportService {
     public void deleteSport(String sportID){
 
         if(sportRepository.findById(sportID) == null){
-            logger.error(String.format("Sport with ID:%s is not present", sportID) );
+            LOGGER.error(String.format("Sport with ID:%s is not present", sportID) );
             throw new IllegalArgumentException(String.format("Sport with ID:%s is not present", sportID));
         }
         sportRepository.delete(sportID);
-        logger.info(String.format("SPORT: Sport id:%s deleted", sportID));
+        LOGGER.info(String.format("SPORT: Sport id:%s deleted", sportID));
     }
 }
