@@ -24,7 +24,7 @@ import com.gullysports.services.SportService;
 public class SportController {
 
     /**
-     * Spring will initialize ProjectService object.
+     * Spring will initialize SportService object.
      */
     @Autowired
     private SportService sportService;
@@ -40,7 +40,7 @@ public class SportController {
     public List<Sport> getAllSports()
         throws Exception {
 
-        return sportService.getAllSports();
+        return sportService.getAll();
     }
 
     /**
@@ -53,7 +53,7 @@ public class SportController {
     public Sport addSport(@RequestBody @Valid Sport sport)
         throws Exception {
 
-        return sportService.addSport(sport);
+        return sportService.add(sport);
     }
 
     /**
@@ -67,7 +67,7 @@ public class SportController {
     public Sport getSport(@PathVariable("sportId") String sportId)
         throws Exception {
 
-        return sportService.getSport(sportId);
+        return sportService.get(sportId);
     }
 
     /**
@@ -82,7 +82,7 @@ public class SportController {
     public Sport updateSport(@RequestBody @Valid Sport sport)
         throws Exception {
 
-        return sportService.updateSport(sport);
+        return sportService.update(sport);
     }
 
     /**
@@ -97,6 +97,6 @@ public class SportController {
     public void deleteSport(@PathVariable("sportId") String sportId)
         throws Exception {
 
-        sportService.deleteSport(sportId);
+        sportService.delete(sportId);
     }
 }

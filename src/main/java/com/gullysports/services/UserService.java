@@ -14,13 +14,12 @@ import java.util.List;
  * related to project GullySports.
  *
  * @author rohan.sahu
- * TODO :  Refactor service - create base service
  */
 @Service
-public class UserService {
+public class UserService implements GenericService<User, String> {
 
     /**
-     * Repository instance for Asset.
+     * Repository instance for User.
      */
     @Autowired
     private UserRepository userRepository;
@@ -31,7 +30,8 @@ public class UserService {
      * Function to get all the users from database.
      * @return list of users
      */
-    public List<User> getAllUsers() {
+    @Override
+    public List<User> getAll() {
         return (List<User>) userRepository.findAll();
     }
 
@@ -40,9 +40,11 @@ public class UserService {
      * @param userID which needs to be updated
      * @return get user
      */
-    public User getUser(String userID) {
+    @Override
+    public User get(String userID) {
 
         if(userRepository.findById(userID) == null){
+            LOGGER.error(String.format("User with ID:%s is not present", userID));
             throw new IllegalArgumentException(String.format("User with ID:%s is not present", userID));
         }
 
@@ -54,10 +56,12 @@ public class UserService {
      * @param user user object which needs to be added
      * @return added user
      */
-    public User addUser(User user) {
+    @Override
+    public User add(User user) {
 
-        if(!(userRepository.findByPhoneNumber(user.getPhoneNumber()).isEmpty())){
-            throw new IllegalArgumentException(String.format("User with phone number : %s is already present", user.getPhoneNumber() ));
+        if(userRepository.findByPhoneNumber(user.getPhoneNumber()) != null) {
+            LOGGER.error(String.format("User with phone number : %s is already present", user.getPhoneNumber()));
+            throw new IllegalArgumentException(String.format("User with phone number : %s is already present", user.getPhoneNumber()));
         }
 
         return userRepository.save(user);
@@ -68,7 +72,8 @@ public class UserService {
      * @param user user object which needs to be updated
      * @return update user
      */
-    public User updateUser(User user){
+    @Override
+    public User update(User user){
 
         if(user.getId() == null){
             throw new IllegalArgumentException("User ID cannot be null");
@@ -79,9 +84,16 @@ public class UserService {
             throw new IllegalArgumentException(String.format("User with ID:%s is not present", user.getId()));
         }
 
-        if(userRepository.findById(user.getId()).getPhoneNumber() != user.getPhoneNumber()){
+        if(!userRepository.findById(user.getId()).getPhoneNumber().equals(user.getPhoneNumber())){
             LOGGER.error(String.format("User with ID:%s cannot change Phone Number", user.getId()));
             throw new IllegalArgumentException(String.format("User with ID:%s cannot change Phone Number", user.getId()));
+        }
+
+        if(user.getEmail() != null) {
+            if (userRepository.findByEmail(user.getEmail()) != null) {
+                LOGGER.error(String.format("User ID: %s cannot use Email : %s is already present in other account", user.getId(), user.getEmail()));
+                throw new IllegalArgumentException(String.format("User ID: %s cannot use Email : %s is already present in other account", user.getId(), user.getEmail()));
+            }
         }
 
         return userRepository.save(user);
@@ -92,12 +104,13 @@ public class UserService {
      * @param userID which needs to be deleted
      * @return update user
      */
-    public void deleteUser(String userID){
+    @Override
+    public void delete(String userID){
 
-//        TODO :  Delete entities which are linked with this user
+        // TODO :  Delete entities which are linked with this user
 
         if(userRepository.findById(userID) == null){
-            LOGGER.error(String.format("User with ID:%s is not present", userID) );
+            LOGGER.error(String.format("User with ID:%s is not present", userID));
             throw new IllegalArgumentException(String.format("User with ID:%s is not present", userID));
         }
         userRepository.delete(userID);

@@ -1,22 +1,25 @@
 package com.gullysports.models;
 
-import javax.validation.constraints.Size;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+@Document(collection = "users")
 public class User extends EntityBase {
 
-    @Size(max = 10)
-    private int phoneNumber;
+    @NotNull
+    private Integer phoneNumber;
 
     private String userName;
     private String email;
     private Date deletedDate;
     private String bio;
-    private int level;
-    private boolean isActive;
-    private boolean isDeleted;
-    private float latitude;
-    private float longitude;
+    private Integer level;
+    private boolean active;
+    private boolean deleted;
+    private double latitude;
+    private double longitude;
     private long points;
 
     public String getUserName() {
@@ -35,28 +38,24 @@ public class User extends EntityBase {
         this.email = email;
     }
 
-    public int getPhoneNumber() {
-        return phoneNumber;
-    }
+    public Integer getPhoneNumber() { return phoneNumber; }
 
-    public void setPhoneNumber(int phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+    public void setPhoneNumber(Integer phoneNumber) { this.phoneNumber = phoneNumber; }
 
     public boolean isActive() {
-        return isActive;
+        return active;
     }
 
     public void setActive(boolean active) {
-        isActive = active;
+        this.active = active;
     }
 
     public boolean isDeleted() {
-        return isDeleted;
+        return deleted;
     }
 
     public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
+        this.deleted = deleted;
     }
 
     public Date getDeletedDate() {
@@ -75,15 +74,13 @@ public class User extends EntityBase {
         this.bio = bio;
     }
 
-    public float getLatitude() {
-        return latitude;
-    }
+    public double getLatitude() { return latitude; }
 
     public void setLatitude(float latitude) {
         this.latitude = latitude;
     }
 
-    public float getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
@@ -91,11 +88,11 @@ public class User extends EntityBase {
         this.longitude = longitude;
     }
 
-    public int getLevel() {
+    public Integer getLevel() {
         return level;
     }
 
-    public void setLevel(int level) {
+    public void setLevel(Integer level) {
         this.level = level;
     }
 

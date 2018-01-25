@@ -1,8 +1,11 @@
 
 package com.gullysports.models;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import javax.validation.constraints.NotNull;
 
+@Document(collection = "sports")
 public class Sport extends EntityBase{
 
     @NotNull

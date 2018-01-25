@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping("v1/users")
 public class UserController {
     /**
-     * Spring will initialize ProjectService object.
+     * Spring will initialize UserService object.
      */
     @Autowired
     private UserService userService;
@@ -34,7 +34,7 @@ public class UserController {
     @RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public List<User> getAllUsers() throws Exception {
-        return userService.getAllUsers();
+        return userService.getAll();
     }
 
     /**
@@ -46,7 +46,7 @@ public class UserController {
     @RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json")
     public User addUser(@RequestBody @Valid User user) throws Exception{
 
-        return userService.addUser(user);
+        return userService.add(user);
     }
 
     /**
@@ -57,8 +57,8 @@ public class UserController {
      */
     @RequestMapping(value = "{userID}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public User getUser(@PathVariable("userId") String userID) throws Exception {
-        return userService.getUser(userID);
+    public User getUser(@PathVariable("userID") String userID) throws Exception {
+        return userService.get(userID);
     }
 
     /**
@@ -71,7 +71,7 @@ public class UserController {
     @RequestMapping(value = "", method = RequestMethod.PUT, produces = "application/json")
     @ResponseBody
     public User updateUser(@RequestBody @Valid User user) throws Exception {
-        return userService.updateUser(user);
+        return userService.update(user);
     }
 
     /**
@@ -84,6 +84,6 @@ public class UserController {
     @RequestMapping(value = "{userID}", method = RequestMethod.DELETE, produces = "application/json")
     @ResponseBody
     public void deleteUser(@PathVariable("userID") String userID) throws Exception {
-        userService.deleteUser(userID);
+        userService.delete(userID);
     }
 }
