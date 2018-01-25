@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Sports class which is responsible for managing all the sports we are supporting
- * related to project GullySports.
+ * SportService class which is responsible for managing different operations on
+ * all the sports we are supporting related to project GullySports.
  * 
  * @author nitesh.sharma
  */
@@ -39,11 +39,13 @@ public class SportService implements GenericService<Sport, String> {
     @Override
     public Sport getById(String sportID) {
 
-        if(sportRepository.findById(sportID) == null){
+    	Sport sport = sportRepository.findById(sportID);
+    	
+        if(sport == null){
             throw new IllegalArgumentException(String.format("Sport with ID:%s is not present", sportID));
         }
 
-        return sportRepository.findById(sportID);
+        return sport;
     }
     
     /**
