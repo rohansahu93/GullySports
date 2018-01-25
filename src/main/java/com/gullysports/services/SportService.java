@@ -12,30 +12,32 @@ import java.util.List;
 
 /**
  * Sports class which is responsible for managing all the sports we are supporting
- * related to project pricing.
+ * related to project GullySports.
  * 
  * @author nitesh.sharma
  */
 @Service
-public class SportService {
+public class SportService implements GenericService<Sport, String> {
 
     /**
-     * Repository instance for Asset.
+     * Repository instance for Sport.
      */
     @Autowired
     private SportRepository sportRepository;
 
-    private final Logger logger = LoggerFactory.getLogger(SportService.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(SportService.class);
 
     /**
      * Function to get all the sports from database.
      * @return list of sports
      */
-    public List<Sport> getAllSports() {
+    @Override
+    public List<Sport> getAll() {
         return (List<Sport>) sportRepository.findAll();
     }
 
-    public Sport getSport(String sportID) {
+    @Override
+    public Sport getById(String sportID) {
 
         if(sportRepository.findById(sportID) == null){
             throw new IllegalArgumentException(String.format("Sport with ID:%s is not present", sportID));
@@ -49,7 +51,8 @@ public class SportService {
      * @param sport sport object which needs to be added
      * @return added sport
      */
-    public Sport addSport(Sport sport) {
+    @Override
+    public Sport add(Sport sport) {
 
         if(!(sportRepository.findByName(sport.getName()).isEmpty())){
             throw new IllegalArgumentException(String.format("Sport %s is already present", sport.getName()));
@@ -63,14 +66,15 @@ public class SportService {
      * @param sport sport object which needs to be updated
      * @return update sport
      */
-    public Sport updateSport(Sport sport){
+    @Override
+    public Sport update(Sport sport){
 
         if(sport.getId() == null){
             throw new IllegalArgumentException("Sport ID cannot be null");
         }
 
         if(sportRepository.findById(sport.getId()) == null){
-            logger.error(String.format("Sport with ID:%s is not present", sport.getId()));
+            LOGGER.error(String.format("Sport with ID:%s is not present", sport.getId()));
             throw new IllegalArgumentException(String.format("Sport with ID:%s is not present", sport.getId()));
         }
 
@@ -82,13 +86,16 @@ public class SportService {
      * @param sportID which needs to be deleted
      * @return update sport
      */
-    public void deleteSport(String sportID){
+    @Override
+    public void delete(String sportID){
+
+        // TODO :  Delete entities which are linked with this user
 
         if(sportRepository.findById(sportID) == null){
-            logger.error(String.format("Sport with ID:%s is not present", sportID) );
+            LOGGER.error(String.format("Sport with ID:%s is not present", sportID) );
             throw new IllegalArgumentException(String.format("Sport with ID:%s is not present", sportID));
         }
         sportRepository.delete(sportID);
-        logger.info(String.format("SPORT: Sport id:%s deleted", sportID));
+        LOGGER.info(String.format("SPORT: Sport id:%s deleted", sportID));
     }
 }
