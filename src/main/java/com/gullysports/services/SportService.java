@@ -37,7 +37,7 @@ public class SportService implements GenericService<Sport, String> {
     }
 
     @Override
-    public Sport get(String sportID) {
+    public Sport getById(String sportID) {
 
         if(sportRepository.findById(sportID) == null){
             throw new IllegalArgumentException(String.format("Sport with ID:%s is not present", sportID));

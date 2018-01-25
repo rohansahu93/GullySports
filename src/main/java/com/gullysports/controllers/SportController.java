@@ -67,7 +67,7 @@ public class SportController {
     public Sport getSport(@PathVariable("sportId") String sportId)
         throws Exception {
 
-        return sportService.get(sportId);
+        return sportService.getById(sportId);
     }
 
     /**

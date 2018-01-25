@@ -58,7 +58,7 @@ public class UserController {
     @RequestMapping(value = "{userID}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public User getUser(@PathVariable("userID") String userID) throws Exception {
-        return userService.get(userID);
+        return userService.getById(userID);
     }
 
     /**

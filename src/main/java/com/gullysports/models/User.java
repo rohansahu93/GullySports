@@ -9,7 +9,7 @@ import java.util.Date;
 public class User extends EntityBase {
 
     @NotNull
-    private Integer phoneNumber;
+    private String phoneNumber;
 
     private String userName;
     private String email;
@@ -38,9 +38,9 @@ public class User extends EntityBase {
         this.email = email;
     }
 
-    public Integer getPhoneNumber() { return phoneNumber; }
+    public String getPhoneNumber() { return phoneNumber; }
 
-    public void setPhoneNumber(Integer phoneNumber) { this.phoneNumber = phoneNumber; }
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
 
     public boolean isActive() {
         return active;
@@ -76,7 +76,7 @@ public class User extends EntityBase {
 
     public double getLatitude() { return latitude; }
 
-    public void setLatitude(float latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
@@ -84,7 +84,7 @@ public class User extends EntityBase {
         return longitude;
     }
 
-    public void setLongitude(float longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 

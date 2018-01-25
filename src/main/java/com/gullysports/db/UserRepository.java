@@ -25,7 +25,7 @@ public interface UserRepository extends CrudRepository<User, String> {
      * @return User Object matching the name parameter
      */
 
-    User findByPhoneNumber(int phoneNumber);
+    User findByPhoneNumber(String phoneNumber);
 
     User findByEmail(String email);
 

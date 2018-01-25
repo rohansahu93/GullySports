@@ -41,7 +41,7 @@ public class UserService implements GenericService<User, String> {
      * @return get user
      */
     @Override
-    public User get(String userID) {
+    public User getById(String userID) {
 
         if(userRepository.findById(userID) == null){
             LOGGER.error(String.format("User with ID:%s is not present", userID));
