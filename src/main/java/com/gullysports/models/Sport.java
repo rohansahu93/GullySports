@@ -1,6 +1,7 @@
 
 package com.gullysports.models;
 
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
@@ -8,10 +9,11 @@ import javax.validation.constraints.NotNull;
 @Document(collection = "sports")
 public class Sport extends EntityBase{
 
-    @NotNull
+    @NotNull(message = "Sport name cannot be null")
+    @Indexed(unique = true)
     private String name;
 
-    @NotNull
+    @NotNull(message = "Sport type cannot be null")
     private SportType sportType;
 
     private String description;

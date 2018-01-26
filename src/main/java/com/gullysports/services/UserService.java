@@ -59,11 +59,6 @@ public class UserService implements GenericService<User, String> {
     @Override
     public User add(User user) {
 
-        if(userRepository.findByPhoneNumber(user.getPhoneNumber()) != null) {
-            LOGGER.error(String.format("User with phone number : %s is already present", user.getPhoneNumber()));
-            throw new IllegalArgumentException(String.format("User with phone number : %s is already present", user.getPhoneNumber()));
-        }
-
         return userRepository.save(user);
     }
 

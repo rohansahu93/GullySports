@@ -54,10 +54,6 @@ public class SportService implements GenericService<Sport, String> {
     @Override
     public Sport add(Sport sport) {
 
-        if(!(sportRepository.findByName(sport.getName()).isEmpty())){
-            throw new IllegalArgumentException(String.format("Sport %s is already present", sport.getName()));
-        }
-
         return sportRepository.save(sport);
     }
 

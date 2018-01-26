@@ -1,5 +1,6 @@
 package com.gullysports.models;
 
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
@@ -8,11 +9,16 @@ import java.util.Date;
 @Document(collection = "users")
 public class User extends EntityBase {
 
-    @NotNull
+    @NotNull(message = "Phone Number cannot be null")
+    @Indexed(unique = true)
     private String phoneNumber;
 
+    @Indexed
     private String userName;
+
+    @Indexed
     private String email;
+
     private Date deletedDate;
     private String bio;
     private Integer level;
