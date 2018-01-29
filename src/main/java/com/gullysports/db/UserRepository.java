@@ -1,9 +1,8 @@
 package com.gullysports.db;
 
-import com.gullysports.models.User;
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.List;
+import com.gullysports.models.User;
 
 
 /**

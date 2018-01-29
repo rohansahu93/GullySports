@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Sports class which is responsible for managing all the sports we are supporting
- * related to project GullySports.
+ * SportService class which is responsible for managing different operations on
+ * all the sports we are supporting related to project GullySports.
  * 
  * @author nitesh.sharma
  */
@@ -39,11 +39,13 @@ public class SportService implements GenericService<Sport, String> {
     @Override
     public Sport getById(String sportID) {
 
-        if(sportRepository.findById(sportID) == null){
+    	Sport sport = sportRepository.findById(sportID);
+    	
+        if(sport == null){
             throw new IllegalArgumentException(String.format("Sport with ID:%s is not present", sportID));
         }
 
-        return sportRepository.findById(sportID);
+        return sport;
     }
     
     /**
@@ -62,20 +64,24 @@ public class SportService implements GenericService<Sport, String> {
      * @param sport sport object which needs to be updated
      * @return update sport
      */
-    @Override
-    public Sport update(Sport sport){
+	@Override
+	public Sport update(Sport sport) {
 
-        if(sport.getId() == null){
-            throw new IllegalArgumentException("Sport ID cannot be null");
-        }
+		if (sport.getId() == null) {
+			throw new IllegalArgumentException("Sport ID cannot be null");
+		}
 
-        if(sportRepository.findById(sport.getId()) == null){
-            LOGGER.error(String.format("Sport with ID:%s is not present", sport.getId()));
-            throw new IllegalArgumentException(String.format("Sport with ID:%s is not present", sport.getId()));
-        }
+		Sport existingSport = sportRepository.findById(sport.getId());
 
-        return sportRepository.save(sport);
-    }
+		if (existingSport == null) {
+			LOGGER.error(String.format("Sport with ID:%s is not present", sport.getId()));
+			throw new IllegalArgumentException(String.format("Sport with ID:%s is not present", sport.getId()));
+		}
+
+		sport.setCreatedDate(existingSport.getCreatedDate());
+
+		return sportRepository.save(sport);
+	}
 
     /**
      * Function to delete a sport.

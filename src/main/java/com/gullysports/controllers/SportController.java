@@ -50,6 +50,7 @@ public class SportController {
      * @return added sport details
      */
     @RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
     public Sport addSport(@RequestBody @Valid Sport sport)
         throws Exception {
 
@@ -93,7 +94,6 @@ public class SportController {
      */
 
     @RequestMapping(value = "{sportId}", method = RequestMethod.DELETE, produces = "application/json")
-    @ResponseBody
     public void deleteSport(@PathVariable("sportId") String sportId)
         throws Exception {
 

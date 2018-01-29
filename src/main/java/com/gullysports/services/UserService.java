@@ -67,32 +67,40 @@ public class UserService implements GenericService<User, String> {
      * @param user user object which needs to be updated
      * @return update user
      */
-    @Override
-    public User update(User user){
+	@Override
+	public User update(User user) {
 
-        if(user.getId() == null){
-            throw new IllegalArgumentException("User ID cannot be null");
-        }
+		if (user.getId() == null) {
+			throw new IllegalArgumentException("User ID cannot be null");
+		}
 
-        if(userRepository.findById(user.getId()) == null){
-            LOGGER.error(String.format("User with ID:%s is not present", user.getId()));
-            throw new IllegalArgumentException(String.format("User with ID:%s is not present", user.getId()));
-        }
+		User existingUser = userRepository.findById(user.getId());
 
-        if(!userRepository.findById(user.getId()).getPhoneNumber().equals(user.getPhoneNumber())){
-            LOGGER.error(String.format("User with ID:%s cannot change Phone Number", user.getId()));
-            throw new IllegalArgumentException(String.format("User with ID:%s cannot change Phone Number", user.getId()));
-        }
+		if (existingUser == null) {
+			LOGGER.error(String.format("User with ID:%s is not present", user.getId()));
+			throw new IllegalArgumentException(String.format("User with ID:%s is not present", user.getId()));
+		}
 
-        if(user.getEmail() != null) {
-            if (userRepository.findByEmail(user.getEmail()) != null) {
-                LOGGER.error(String.format("User ID: %s cannot use Email : %s is already present in other account", user.getId(), user.getEmail()));
-                throw new IllegalArgumentException(String.format("User ID: %s cannot use Email : %s is already present in other account", user.getId(), user.getEmail()));
-            }
-        }
+		if (!existingUser.getPhoneNumber().equals(user.getPhoneNumber())) {
+			LOGGER.error(String.format("User with ID:%s cannot change Phone Number", user.getId()));
+			throw new IllegalArgumentException(
+					String.format("User with ID:%s cannot change Phone Number", user.getId()));
+		}
 
-        return userRepository.save(user);
-    }
+		if (user.getEmail() != null) {
+			if (userRepository.findByEmail(user.getEmail()) != null) {
+				LOGGER.error(String.format("User ID: %s cannot use Email : %s is already present in other account",
+						user.getId(), user.getEmail()));
+				throw new IllegalArgumentException(
+						String.format("User ID: %s cannot use Email : %s is already present in other account",
+								user.getId(), user.getEmail()));
+			}
+		}
+
+		user.setCreatedDate(existingUser.getCreatedDate());
+
+		return userRepository.save(user);
+	}
 
     /**
      * Function to delete a user.
