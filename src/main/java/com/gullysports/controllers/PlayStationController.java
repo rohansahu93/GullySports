@@ -1,5 +1,7 @@
 package com.gullysports.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,4 +98,16 @@ public class PlayStationController {
 
 		playStationService.delete(playStationId);
     }
+	
+	/**
+	 * API to find PlayStations which match with the queried name.
+	 *  
+	 * @param name Queried name.
+	 * @return List of filtered PlayStations.
+	 */
+	@RequestMapping(value = "name/{name}", method = RequestMethod.GET, produces = "application/json")
+	public List<PlayStation> findPlayStationsByName(@PathVariable("name") String name) {
+		
+		return playStationService.findByName(name);
+	}
 }

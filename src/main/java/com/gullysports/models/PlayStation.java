@@ -4,27 +4,39 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "playStations")
 public class PlayStation extends EntityBase {
-	@NotNull
+
+	@NotNull(message = "Name can't be null.")
+	@Indexed
 	private String name;
-	@NotNull
+
+	@NotNull(message = "Address can't be null.")
 	private String address;
+
 	private String description;
-	@NotNull
+
+	@NotNull(message = "Opening Time can't be null.")
 	private String openingTime;
-	@NotNull
+
+	@NotNull(message = "Closing Time can't be null.")
 	private String closingTime;
+
 	private boolean paid;
+
 	private List<Charge> charges;
-	@NotNull
+
+	@NotNull(message = "Latitude can't be null.")
 	private double latitude;
-	@NotNull
+
+	@NotNull(message = "Longitude can't be null.")
 	private double longitude;
-	@NotNull
-	private List<Slot> slots;
+
+	@NotNull(message = "GameSlots can't be null.")
+	private List<GameSlots> gameSlots;
 
 	public String getName() {
 		return name;
@@ -98,12 +110,12 @@ public class PlayStation extends EntityBase {
 		this.longitude = longitude;
 	}
 
-	public List<Slot> getSlots() {
-		return slots;
+	public List<GameSlots> getGameSlots() {
+		return gameSlots;
 	}
 
-	public void setSlots(List<Slot> slots) {
-		this.slots = slots;
+	public void setGameSlots(List<GameSlots> gameSlots) {
+		this.gameSlots = gameSlots;
 	}
 
 }

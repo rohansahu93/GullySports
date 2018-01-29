@@ -68,20 +68,24 @@ public class SportService implements GenericService<Sport, String> {
      * @param sport sport object which needs to be updated
      * @return update sport
      */
-    @Override
-    public Sport update(Sport sport){
+	@Override
+	public Sport update(Sport sport) {
 
-        if(sport.getId() == null){
-            throw new IllegalArgumentException("Sport ID cannot be null");
-        }
+		if (sport.getId() == null) {
+			throw new IllegalArgumentException("Sport ID cannot be null");
+		}
 
-        if(sportRepository.findById(sport.getId()) == null){
-            LOGGER.error(String.format("Sport with ID:%s is not present", sport.getId()));
-            throw new IllegalArgumentException(String.format("Sport with ID:%s is not present", sport.getId()));
-        }
+		Sport existingSport = sportRepository.findById(sport.getId());
 
-        return sportRepository.save(sport);
-    }
+		if (existingSport == null) {
+			LOGGER.error(String.format("Sport with ID:%s is not present", sport.getId()));
+			throw new IllegalArgumentException(String.format("Sport with ID:%s is not present", sport.getId()));
+		}
+
+		sport.setCreatedDate(existingSport.getCreatedDate());
+
+		return sportRepository.save(sport);
+	}
 
     /**
      * Function to delete a sport.

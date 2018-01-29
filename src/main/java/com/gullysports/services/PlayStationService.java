@@ -1,5 +1,7 @@
 package com.gullysports.services;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,12 +58,16 @@ public class PlayStationService implements PaginationGenericService<PlayStation,
 			throw new IllegalArgumentException("PlayStation ID cannot be null");
 		}
 
-		if (playStationRepository.findById(playStation.getId()) == null) {
+		PlayStation existingPlayStation = playStationRepository.findById(playStation.getId());
+		
+		if (existingPlayStation == null) {
 			LOGGER.error(String.format("PlayStation with ID:%s is not present", playStation.getId()));
 			throw new IllegalArgumentException(
 					String.format("PlayStation with ID:%s is not present", playStation.getId()));
 		}
 
+		playStation.setCreatedDate(existingPlayStation.getCreatedDate());
+		
 		return playStationRepository.save(playStation);
 	}
 
@@ -75,6 +81,16 @@ public class PlayStationService implements PaginationGenericService<PlayStation,
 		
 		playStationRepository.delete(id);
         LOGGER.info(String.format("PlayStation: PlayStation id:%s deleted", id));
+	}
+	
+	/**
+	 * Function to find all the PlayStations with the name matched by search query.
+	 * 
+	 * @param name requested search query name
+	 * @return List of PlayStations
+	 */
+	public List<PlayStation> findByName(String name) {
+		return playStationRepository.findByName(name);
 	}
 
 }

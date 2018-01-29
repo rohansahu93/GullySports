@@ -1,19 +1,20 @@
 package com.gullysports.models;
 
-import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 public class Charge {
-	private ObjectId sportId;
+	@DBRef
+	private Sport sport;
 	private Long amount;
 	private String rate;
 	private String currency;
 
-	public ObjectId getSportId() {
-		return sportId;
+	public Sport getSport() {
+		return sport;
 	}
 
-	public void setSportId(ObjectId sportId) {
-		this.sportId = sportId;
+	public void setSport(Sport sport) {
+		this.sport = sport;
 	}
 
 	public Long getAmount() {
